@@ -31,6 +31,13 @@ class SimpleAttr( BaseObject ):
         '''
         return "%s : %s ;" % ( self.name, self.value )
 
+    def indent_print( self, indent=0 ):
+        '''
+        Print attribute with indent.
+        '''
+        statement = "%s%s" % ( ' '*indent, str(self) )
+        print( statement )
+
     def extract( self, line ):
         '''
         Extract name and value from string line.
@@ -62,6 +69,19 @@ class ComplexAttr( SimpleAttr ):
     '''
     Class for extract / form complex attributes of liberty.
     '''
+    def __str__( self ):
+        '''
+        Get string of complex attribute.
+        '''
+        return "%s ( %s ) ;" % ( self.name, ', '.join(self.value) )
+
+    #def indent_print( self, indent=0 ):
+    #    '''
+    #    Print complex attribute with indent.
+    #    '''
+    #    statement = "%s%s" % ( ' '*indent, str(self) )
+    #    print( statement )
+
     def extract( self, line ):
         '''
         Extract name and value from string line for complex attributes.
@@ -87,10 +107,4 @@ class ComplexAttr( SimpleAttr ):
         if len( args ) == 0 and DEBUG :
             print( "Warning: Complex Attribute build with no value." )
         return 
-
-    def __str__( self ):
-        '''
-        Get string of complex attribute.
-        '''
-        return "%s ( %s ) ;" % ( self.name, ', '.join(self.value) )
 
